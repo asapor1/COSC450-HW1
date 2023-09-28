@@ -15,7 +15,7 @@ The readme file should include a screenshot showing an actual example of input a
 and server when your program runs.
 
 Go to
-https://neilmadden.blog/2016/05/20/ephemeral-elliptic-curve-diffie-hellman-key-agreement-injava/#more-2269
+https://neilmadden.blog/2016/05/20/ephemeral-elliptic-curve-diffie-hellman-key-agreement-in-java/#more-2269
 Get the ECDH java code from that site, modify it as needed.
 Your code should not use javax.xml.bind.
 
