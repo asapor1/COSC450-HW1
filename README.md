@@ -4,18 +4,21 @@ Please upload the Java source code (.java) files needed to Blackboard by the due
 
 Only two files are needed: groupnamea1client.java and groupnamea1server.java. 
 Put these two files in a folder named groupnamea1, where groupname is the name assigned to your group 
-on Blackboard. 
+on Blackboard.
 There should not be any other classes used, needed, or downloaded (no nested classes etc.).
 This means that only the uploaded source code in the two .java files are needed for your program to 
 compile and run. 
+
 Open two windows on your machine for running the client and server respectively. 
 Include a readme file in each folder that tells a user how to run and test your program. 
 The readme file should include a screenshot showing an actual example of input and output at the client 
 and server when your program runs.
+
 Go to
 https://neilmadden.blog/2016/05/20/ephemeral-elliptic-curve-diffie-hellman-key-agreement-injava/#more-2269
 Get the ECDH java code from that site, modify it as needed.
 Your code should not use javax.xml.bind.
+
 Go to 
 https://mkyong.com/java/java-aes-encryption-and-decryption/
 Get the AES GCM Password-Based encryption and decryption java code from that site, modify 
