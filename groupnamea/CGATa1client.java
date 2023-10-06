@@ -12,6 +12,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import javax.crypto.KeyAgreement;
 
+// "Alice" = client; "Bob" = server
 public class CGATa1client {
     public static void main(String[] args) throws Exception {
         Socket clientSocket = new Socket("localhost", 24501);
@@ -21,8 +22,19 @@ public class CGATa1client {
         KeyPairGenerator kpg = KeyPairGenerator.getInstance("EC");
         kpg.initialize(256);
         KeyPair kp = kpg.generateKeyPair();
-        byte[] pkBytes = kp.getPublic().getEncoded();
-        String pk = "Alice's key: ";
+        // Generate byte arrays for Alice & Bob's public key
+        byte[] pkBytesC = kp.getPublic().getEncoded();
+        byte[] pyBytesS = new byte[pkBytesC.length];
+        // Transmit Alice's public key & receive Bob's public key (1 byte at a time)
+        for (int i = 0; i < pkBytesC.length; i++) {
+            outToServer.writeByte(pkBytesC[i]);
+            pkBy[i] = inFromServer.read();
+        }
+        outToServer.write(pkBytes);
+        String pkey;
+        pkey = inFromServer.readLine();
+        System.out.println(pkey);
+        /*String pk = "Alice's key: ";
         int decimal;
         String hex;
         for (byte aByte : pkBytes) {
@@ -39,6 +51,6 @@ public class CGATa1client {
         outToServer.writeBytes(pk + '\n');
         KeyFactory kf = KeyFactory.getInstance("EC");
         X509EncodedKeySpec pkSpec = new X509EncodedKeySpec(pkBytes);
-        PublicKey publicKey = kf.generatePublic(pkSpec);
+        PublicKey publicKey = kf.generatePublic(pkSpec);*/
     }
 }

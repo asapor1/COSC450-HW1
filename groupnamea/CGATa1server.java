@@ -13,7 +13,7 @@ public class CGATa1server {
     
     public static void main(String[] args) throws Exception {
         ServerSocket serverSocket = new ServerSocket(24501);
-        while(true) {
+        while (true) {
             Socket connectionSocket = serverSocket.accept();
             BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
             DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
@@ -21,24 +21,30 @@ public class CGATa1server {
             KeyPairGenerator kpg = KeyPairGenerator.getInstance("EC");
             kpg.initialize(256);
             KeyPair kp = kpg.generateKeyPair();
-            byte[] pkBytes = kp.getPublic().getEncoded();
-            String pk = "Bob's key: ";
+            // Generate byte arrays for Alice & Bob's public key
+            byte[] pkBytesS = kp.getPublic().getEncoded();
+            byte[] pyBytesC = new byte[pkBytesS.length];
+            // Transmit Bob's public key & receive Alice's public key (1 byte at a time)
+            for (int i = 0; i < pkBytesS.length; i++) {
+                outToClient.writeByte(pkBytesS[i]);
+            }
+
+            // Receive Alice's public key
+            String pkey;
+            pkey = inFromClient.readLine();
+            System.out.println(pkey);
+            /*String pk = "Alice's key: ";
             int decimal;
             String hex;
-            for (byte aByte : pkBytes) {
-                decimal = (int) aByte + 128;
+            for (int i = 0; i < pkey.length(); i++) {
+                decimal = (int) pkey.charAt(i) + 128;
                 hex = Integer.toHexString(decimal);
                 if (hex.length() % 2 == 1) {
                     hex = hex + "0";
                 }
                 pk = pk.concat(hex);
             }
-            // Transmit Bob's public key
-            outToClient.writeBytes(pk + '\n');
-            // Receive Alice's public key
-            String pkey;
-            pkey = inFromClient.readLine();
-            System.out.printf("%s%n", pkey);
+            System.out.printf("%s%n", pk);
             KeyFactory kf = KeyFactory.getInstance("EC");
             X509EncodedKeySpec pkSpec = new X509EncodedKeySpec(pkBytes);
             PublicKey publicKey = kf.generatePublic(pkSpec);
@@ -62,6 +68,8 @@ public class CGATa1server {
         //hash.update(keys.get(1));
 
         //byte[] derivedKey = hash.digest();
-        //console.printf("Final key: %s%n", printHexBinary(derivedKey));
+        //console.printf("Final key: %s%n", printHexBinary(derivedKey));*/
+
+        }
     }
 }
